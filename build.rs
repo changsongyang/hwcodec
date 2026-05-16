@@ -154,8 +154,9 @@ mod ffmpeg {
             )
         );
         {
-            let mut static_libs = vec!["avcodec", "avutil", "avformat", "swresample"];
+            let mut static_libs = vec!["avcodec", "avutil", "avformat"];
             if target_os == "windows" {
+                static_libs.push("swresample");
                 static_libs.push("libmfx");
             }
             static_libs
