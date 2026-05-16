@@ -154,11 +154,7 @@ mod ffmpeg {
             )
         );
         {
-            let mut static_libs = vec!["avcodec", "avutil", "avformat"];
-            if target_os == "windows" {
-                static_libs.push("swresample");
-                static_libs.push("libmfx");
-            }
+            let static_libs = vec!["avcodec", "avutil", "avformat"];
             static_libs
                 .iter()
                 .map(|lib| println!("cargo:rustc-link-lib=static={}", lib))
