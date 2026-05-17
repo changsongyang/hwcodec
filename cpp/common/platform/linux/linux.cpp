@@ -124,7 +124,7 @@ int linux_support_vdpau()
       return 0;
     }
   }
-  LOG_WARNING("VDPAU library not found, falling back to software decoding");
+  LOG_WARN("VDPAU library not found, falling back to software decoding");
   vdpau_support = 1;
   return -1;
 }
