@@ -53,6 +53,15 @@ pub(crate) fn supported_gpu(_encode: bool) -> (bool, bool, bool) {
     }
 }
 
+#[cfg(target_os = "linux")]
+pub(crate) fn supported_vdpau() -> bool {
+    use std::ffi::c_int;
+    extern "C" {
+        fn linux_support_vdpau() -> c_int;
+    }
+    unsafe { linux_support_vdpau() == 0 }
+}
+
 #[cfg(target_os = "macos")]
 pub(crate) fn get_video_toolbox_codec_support() -> (bool, bool, bool, bool) {
     use std::ffi::c_void;

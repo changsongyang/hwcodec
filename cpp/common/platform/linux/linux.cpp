@@ -104,6 +104,23 @@ int linux_support_intel()
   return -1;
 }
 
+int linux_support_vdpau()
+{
+  const char *libs[] = {"libvdpau.so.1", "libvdpau.so"};
+  for (size_t i = 0; i < sizeof(libs) / sizeof(libs[0]); i++)
+  {
+    void *handle = dlopen(libs[i], RTLD_LAZY);
+    if (handle)
+    {
+      dlclose(handle);
+      LOG_TRACE(std::string("VDPAU library found: ") + libs[i]);
+      return 0;
+    }
+  }
+  LOG_TRACE(std::string("VDPAU library not found"));
+  return -1;
+}
+
 int setup_parent_death_signal() {
   // Set up parent death signal to ensure this process dies if parent dies
   // This prevents orphaned processes especially when running with different

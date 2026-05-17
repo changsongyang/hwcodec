@@ -223,6 +223,26 @@ impl Decoder {
                     ..Default::default()
                 },
             ]);
+            
+            if crate::common::supported_vdpau() {
+                debug!("VDPAU support detected, adding VDPAU decoders");
+                codecs.append(&mut vec![
+                    CodecInfo {
+                        name: "h264".to_owned(),
+                        format: H264,
+                        hwdevice: AV_HWDEVICE_TYPE_VDPAU,
+                        priority: Priority::Good as _,
+                        ..Default::default()
+                    },
+                    CodecInfo {
+                        name: "hevc".to_owned(),
+                        format: H265,
+                        hwdevice: AV_HWDEVICE_TYPE_VDPAU,
+                        priority: Priority::Good as _,
+                        ..Default::default()
+                    },
+                ]);
+            }
         }
 
         #[cfg(target_os = "macos")]
