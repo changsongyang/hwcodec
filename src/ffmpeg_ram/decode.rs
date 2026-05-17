@@ -241,6 +241,27 @@ impl Decoder {
                         priority: Priority::Good as _,
                         ..Default::default()
                     },
+                    CodecInfo {
+                        name: "mpeg2video".to_owned(),
+                        format: MPEG2VIDEO,
+                        hwdevice: AV_HWDEVICE_TYPE_VDPAU,
+                        priority: Priority::Good as _,
+                        ..Default::default()
+                    },
+                    CodecInfo {
+                        name: "mpeg4".to_owned(),
+                        format: MPEG4,
+                        hwdevice: AV_HWDEVICE_TYPE_VDPAU,
+                        priority: Priority::Good as _,
+                        ..Default::default()
+                    },
+                    CodecInfo {
+                        name: "vc1".to_owned(),
+                        format: VC1,
+                        hwdevice: AV_HWDEVICE_TYPE_VDPAU,
+                        priority: Priority::Good as _,
+                        ..Default::default()
+                    },
                 ]);
             }
         }

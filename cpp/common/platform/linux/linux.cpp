@@ -104,8 +104,14 @@ int linux_support_intel()
   return -1;
 }
 
+static int vdpau_support = -1;  // -1: unknown, 0: supported, 1: not supported
+
 int linux_support_vdpau()
 {
+  if (vdpau_support != -1) {
+    return vdpau_support == 0 ? 0 : -1;
+  }
+  
   const char *libs[] = {"libvdpau.so.1", "libvdpau.so"};
   for (size_t i = 0; i < sizeof(libs) / sizeof(libs[0]); i++)
   {
@@ -113,11 +119,13 @@ int linux_support_vdpau()
     if (handle)
     {
       dlclose(handle);
-      LOG_TRACE(std::string("VDPAU library found: ") + libs[i]);
+      LOG_INFO(std::string("VDPAU library found: ") + libs[i]);
+      vdpau_support = 0;
       return 0;
     }
   }
-  LOG_TRACE(std::string("VDPAU library not found"));
+  LOG_WARNING("VDPAU library not found, falling back to software decoding");
+  vdpau_support = 1;
   return -1;
 }
 
