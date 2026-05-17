@@ -153,13 +153,6 @@ mod ffmpeg {
                 path.join("lib").to_str().unwrap()
             )
         );
-        {
-            let static_libs = vec!["avcodec", "avutil", "avformat"];
-            static_libs
-                .iter()
-                .map(|lib| println!("cargo:rustc-link-lib=static={}", lib))
-                .count();
-        }
 
         let include = path.join("include");
         println!("{}", format!("cargo:include={}", include.to_str().unwrap()));
